@@ -3,8 +3,8 @@ import urllib.request
 import os
 
 KEYWORDS = [
-    'covid+tested',
-    'covid+test'
+    'covid',
+    'coronavirus'
 ]
 
 BASE_URL = 'http://api.pushshift.io/reddit/search/comment/?q={}&after=300d&aggs=created_utc&frequency=day&size=0&sort=asc'
@@ -19,6 +19,8 @@ def get_data(base_url, keyword):
     if '+' in keyword:
         file_to_write = keyword.replace('+', '-')
         col_name = keyword.replace('+', '_')
+    else:
+        file_to_write, col_name = keyword, keyword
 
     with open(file_to_write + '.csv', 'w+') as f:
         f.write('date,{}\n'.format(col_name + '_count'))
